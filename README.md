@@ -49,7 +49,7 @@ Speech is converted to text using **Faster-Whisper (offline ASR)**.
 The system captures speech and converts it into text using **Faster-Whisper**.  
 It can then translate the speech using **Seamless M4T**.
 
-![Speech to Text](Speech to text.png)
+![Speech](images/speech_to_text.png)
 
 ---
 
@@ -66,7 +66,7 @@ Supported emotions include:
 - Neutral
 - Depressed
 
-![Emotion Detection](Emotion Detection.png)
+![Emotion Detection](images/Emotion_Detection.png)
 
 ---
 
@@ -83,7 +83,7 @@ Examples:
 | Excited | Amusement parks |
 | Neutral | Cafes & malls |
 
-![Suggestions](Giving Suggestions.png)
+![Suggestions](images/Giving_Suggestions.png)
 
 ---
 
@@ -97,7 +97,7 @@ Navigation includes:
 - Estimated travel time
 - Route visualization
 
-![Navigation](Navigating.png)
+![Navigation](images/Navigating.png)
 
 Maps are rendered using **Folium inside Streamlit**.
 
