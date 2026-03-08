@@ -49,7 +49,7 @@ Speech is converted to text using **Faster-Whisper (offline ASR)**.
 The system captures speech and converts it into text using **Faster-Whisper**.  
 It can then translate the speech using **Seamless M4T**.
 
-![Speech](images/speech_to_text.png)
+![Speech](images/Speech_to_text.png)
 
 ---
 
