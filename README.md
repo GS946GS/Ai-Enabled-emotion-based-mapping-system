@@ -1,51 +1,155 @@
-# 🧭 Multilingual Speech → Emotion → Location Suggestions → Navigation System
+# 🧭 AI-Enabled Emotion Based Mapping System
 
-**Offline ASR (Faster-Whisper) • Offline Translation (Seamless M4T) • Emotion Analysis • Location Suggestions • Offline Navigation (OSRM)**
+**Multilingual Speech → Emotion Detection → Smart Location Suggestions → Navigation**
 
----
+🚀 **This project was developed within 2 days during the _GenAI NxtWave Buildathon_.**
 
-# 📦 1. Project Overview
-
-This system allows users to:
-
-- 🎤 Speak in **multiple Indian languages**
-- 📝 Convert speech to text using **Faster-Whisper ASR**
-- 🌍 Translate to English using **Seamless M4T (offline)**
-- 😊 Detect **emotion from the text**
-- 📍 Suggest **places near the user's location**
-- 🗺️ Provide **turn-by-turn navigation using OSRM (offline routing engine)**
-- 🧭 Display **interactive maps and routes using Folium**
-
-✅ The system works **fully offline** except optional geocoding.
+The system demonstrates how **Generative AI, speech recognition, emotion analysis, and geospatial routing** can be combined to create an intelligent navigation assistant.
 
 ---
 
-# 📁 2. Folder Structure
+# 📦 Project Overview
+
+This project is an **AI-powered navigation assistant** that understands **user speech in multiple languages**, detects the **user's emotional state**, and suggests **nearby places with navigation routes**.
+
+The system works mostly **offline** using modern AI models for speech recognition, translation, and emotion analysis.
+
+---
+
+# 🚀 Features
+
+🎤 **Multilingual Speech Input**
+
+Supports speech in Indian languages such as:
+
+- Tamil  
+- Hindi  
+- Telugu  
+- Malayalam  
+- Kannada  
+
+Speech is converted to text using **Faster-Whisper (offline ASR)**.
+
+---
+
+🌍 **Offline Translation**
+
+Speech text is translated to English using **Seamless M4T** running locally.
+
+---
+
+😊 **Emotion Detection**
+
+The translated text is analyzed to detect user emotions such as:
+
+- Happy
+- Sad
+- Angry
+- Excited
+- Neutral
+
+Emotion detection uses a **fine-tuned Transformer model**.
+
+---
+
+📍 **Emotion-Based Place Suggestions**
+
+Based on the detected emotion, the system suggests places such as:
+
+| Emotion | Suggested Places |
+|-------|-------|
+| Happy | Beaches, Parks |
+| Sad | Calm relaxing areas |
+| Excited | Amusement parks |
+| Neutral | Shopping malls |
+
+---
+
+🗺 **Offline Navigation**
+
+The system provides:
+
+- Route distance
+- Navigation path
+- Interactive map
+
+Routing is done using **OSRM (Open Source Routing Machine)**.
+
+---
+
+📊 **Interactive Map Visualization**
+
+Maps and routes are displayed using:
+
+- **Folium**
+- **Streamlit**
+
+---
+
+# 🧠 System Architecture
 
 ```
-project/
-│
-├── app.py                      # Streamlit UI (main application)
-├── speech_input.py             # Faster-Whisper + Seamless pipeline
-├── emotion_model.py            # Emotion classifier
-├── osrm_route.py               # OSRM routing helpers
-│
-├── seamless-m4t-v2-large/      # Seamless translation model (local)
-├── final_emotion_model/        # Emotion model files
-└── india-latest.osm.pbf        # OSRM map file
+User Speech
+     │
+     ▼
+Faster-Whisper ASR
+     │
+     ▼
+Seamless M4T Translation
+     │
+     ▼
+Emotion Detection Model
+     │
+     ▼
+Emotion-Based Place Suggestions
+     │
+     ▼
+OSRM Routing Engine
+     │
+     ▼
+Map + Navigation (Folium)
 ```
 
 ---
 
-# ⚙️ 3. Installation
+# 📂 Project Structure
 
-## Step 1 — Create Virtual Environment
+```
+Ai-Enabled-emotion-based-mapping-system
+│
+├── app.py
+│   Streamlit main application
+│
+├── speech_input.py
+│   Handles speech recording, Faster-Whisper ASR and translation
+│
+├── emotion_model.py
+│   Emotion classification using transformer model
+│
+├── osrm_route.py
+│   Handles route requests from OSRM server
+│
+├── seamless-m4t-v2-large/
+│   Local translation model
+│
+├── final_emotion_model/
+│   Pretrained emotion classification model
+│
+└── india-latest.osm.pbf
+    Map file for OSRM routing
+```
+
+---
+
+# ⚙️ Installation
+
+## Create Virtual Environment
 
 ```
 python -m venv venv
 ```
 
-Activate environment (Windows):
+Activate:
 
 ```
 venv\Scripts\activate
@@ -53,69 +157,45 @@ venv\Scripts\activate
 
 ---
 
-## Step 2 — Install Required Packages
+## Install Dependencies
 
 ```
-pip install streamlit folium streamlit-folium
+pip install streamlit
+pip install folium streamlit-folium
 pip install torch torchaudio transformers
 pip install faster-whisper
-pip install pyaudio webrtcvad noisereduce soundfile
+pip install pyaudio webrtcvad
+pip install noisereduce soundfile
 pip install requests
 ```
 
 ---
 
-# 🌏 4. Download OSRM Map File (PBF)
+# 🌏 Download Map Data
 
-Download India map (.osm.pbf):
-
-Official Geofabrik link:
+Download the **India map file (.osm.pbf)**:
 
 https://download.geofabrik.de/asia/india.html
 
-You may also download:
-
-- Tamil Nadu map
-- South India map
-- Asia map
-
-Download file:
+Place the file inside the project directory.
 
 ```
 india-latest.osm.pbf
 ```
 
-Place the file in your **project directory**.
-
 ---
 
-# 🛠️ 5. Build OSRM Routing Backend (Windows Guide)
+# 🛠 Setup OSRM Routing Server
 
-## Install OSRM Backend
-
-Download Windows binaries:
+Download OSRM backend:
 
 https://github.com/Project-OSRM/osrm-backend/releases
 
-Download:
-
-```
-osrm-backend-win64.zip
-```
-
-Extract anywhere on your system.
+Extract the binaries.
 
 ---
 
-## Step-by-Step Setup
-
-Assume your map file location is:
-
-```
-C:\osrm\india-latest.osm.pbf
-```
-
-### 1️⃣ Extract the map
+### Step 1 — Extract Map
 
 ```
 cd C:\osrm
@@ -124,7 +204,7 @@ osrm-extract india-latest.osm.pbf -p profiles/car.lua
 
 ---
 
-### 2️⃣ Partition the map
+### Step 2 — Partition
 
 ```
 osrm-partition india-latest.osrm
@@ -132,7 +212,7 @@ osrm-partition india-latest.osrm
 
 ---
 
-### 3️⃣ Customize
+### Step 3 — Customize
 
 ```
 osrm-customize india-latest.osrm
@@ -140,135 +220,82 @@ osrm-customize india-latest.osrm
 
 ---
 
-### 4️⃣ Start OSRM Routing Server
+### Step 4 — Start Routing Server
 
 ```
 osrm-routed india-latest.osrm
 ```
 
-You should see:
-
-```
-[info] running and waiting for requests on 0.0.0.0:5000
-```
-
----
-
-# 🗺️ 6. Test OSRM Server
-
-Open browser:
-
-```
-http://127.0.0.1:5000/route/v1/driving/80.28,13.05;80.23,12.59
-```
-
-If you see **JSON output**, OSRM is working correctly.
-
----
-
-# 🚀 7. Run the Streamlit App
-
-Inside your project folder:
-
-```
-streamlit run app.py
-```
-
-The web app will automatically open in your browser.
-
----
-
-# 🎤 8. Using the Application
-
-## Tab 1 — Speech
-
-Speak in languages such as:
-
-- Hindi
-- Tamil
-- Telugu
-- Malayalam
-- Kannada
-
-The system performs:
-
-```
-Speech → Text → English Translation
-```
-
----
-
-## Tab 2 — Emotion Detection
-
-The system analyzes the text and detects emotion:
-
-- happy
-- sad
-- angry
-- excited
-- neutral
-
----
-
-## Tab 3 — Place Suggestions
-
-Based on detected emotion, the system suggests **nearby landmarks in Chennai**.
-
-Example:
-
-| Emotion | Suggested Places |
-|-------|-------|
-| Happy | Marina Beach |
-| Sad | Elliot's Beach |
-| Excited | VGP Universal Kingdom |
-| Neutral | Phoenix Mall |
-
----
-
-## Tab 4 — Navigation
-
-Uses **OSRM offline routing** to provide:
-
-- Route path
-- Distance
-- Turn-by-turn directions
-- Interactive map display
-
----
-
-# 🧠 Technologies Used
-
-- **Python**
-- **Streamlit**
-- **Faster-Whisper (Offline Speech Recognition)**
-- **Seamless M4T (Offline Translation)**
-- **Transformers**
-- **PyTorch**
-- **OSRM (Offline Routing Engine)**
-- **Folium (Interactive Maps)**
-
----
-
-# ❗ 9. Troubleshooting
-
-## OSRM Not Reachable
-
-Check:
-
-- OSRM server is running
-- Correct URL:
+Server runs at:
 
 ```
 http://127.0.0.1:5000
 ```
 
-- Correct `.osm.pbf` map file
+---
+
+# 🧪 Test OSRM
+
+Open in browser:
+
+```
+http://127.0.0.1:5000/route/v1/driving/80.28,13.05;80.23,12.59
+```
+
+If JSON appears, the routing server works correctly.
 
 ---
 
-## PyAudio Installation Error
+# 🚀 Run the Application
 
-Install PyAudio using:
+Inside the project directory:
+
+```
+streamlit run app.py
+```
+
+The web interface will open automatically.
+
+---
+
+# 🎤 Application Workflow
+
+### 1️⃣ Speech Input
+User speaks in native language.
+
+### 2️⃣ Speech Recognition
+Faster-Whisper converts speech → text.
+
+### 3️⃣ Translation
+Seamless M4T converts text → English.
+
+### 4️⃣ Emotion Detection
+Emotion classifier detects emotional state.
+
+### 5️⃣ Location Suggestions
+System recommends nearby places.
+
+### 6️⃣ Navigation
+OSRM calculates route and displays map.
+
+---
+
+# 🧰 Technologies Used
+
+- Python
+- Streamlit
+- PyTorch
+- Transformers
+- Faster-Whisper
+- Seamless M4T
+- OSRM Routing Engine
+- Folium Maps
+
+---
+
+# ⚠ Troubleshooting
+
+## PyAudio installation error
 
 ```
 pip install pipwin
@@ -277,34 +304,33 @@ pipwin install pyaudio
 
 ---
 
-## Seamless Model Not Found
+## OSRM server not reachable
 
-Set the correct model path in your code:
+Ensure:
+
+- OSRM server is running
+- Correct URL:
 
 ```
-SEAMLESS_DIR = r"C:\Users\sinth\seamless-m4t-v2-large"
+http://127.0.0.1:5000
 ```
 
 ---
 
-## Emotion Model Issues
+## Missing models
 
-Verify folder structure:
+Verify these folders exist:
 
 ```
+seamless-m4t-v2-large/
 final_emotion_model/
-    config.json
-    pytorch_model.bin
-    tokenizer.json
-    vocab.txt
-    merges.txt
 ```
 
 ---
 
-# 📜 License
+# 🏆 Buildathon
 
-This project is released under the **MIT License**.
+This project was **designed and developed within 2 days during the _GenAI NxtWave Buildathon_**, demonstrating rapid prototyping using modern AI and geospatial technologies.
 
 ---
 
@@ -314,3 +340,7 @@ This project is released under the **MIT License**.
 
 GitHub  
 https://github.com/GS946GS
+
+---
+
+⭐ If you find this project useful, consider giving it a star.
